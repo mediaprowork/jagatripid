@@ -2,13 +2,17 @@ import { defineConfig, envField, fontProviders } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
+import cloudflare from '@astrojs/cloudflare';
+
 export default defineConfig({
   site: 'https://jagatrip.com',
   output: 'static',
   integrations: [sitemap()],
+
   vite: {
     plugins: [tailwindcss()],
   },
+
   fonts: [
     {
       provider: fontProviders.google(),
@@ -30,6 +34,7 @@ export default defineConfig({
       weights: [400, 500, 700],
     },
   ],
+
   env: {
     schema: {
       PUBLIC_SITE_URL: envField.string({ context: 'client', access: 'public', default: 'https://jagatrip.com' }),
@@ -38,4 +43,6 @@ export default defineConfig({
       PUBLIC_EMAIL: envField.string({ context: 'client', access: 'public', default: 'info@jagatrip.com' }),
     },
   },
+
+  adapter: cloudflare(),
 });
